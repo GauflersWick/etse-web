@@ -1005,7 +1005,268 @@
 
     }
 
-  </style>
+  
+
+    /* =========================
+       ¿QUÉ ESTÁ PASANDO?
+    ========================= */
+
+    .problem-section {
+      padding: 110px 7vw;
+      background: var(--white);
+      border-top: 1px solid var(--line);
+    }
+
+    .problem-header {
+      max-width: 850px;
+      margin-bottom: 55px;
+    }
+
+    .problem-eyebrow {
+      display: inline-block;
+      margin-bottom: 18px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+
+    .problem-title {
+      font-size: clamp(42px, 6vw, 82px);
+      line-height: .95;
+      letter-spacing: -4px;
+      font-weight: 900;
+    }
+
+    .problem-subtitle {
+      margin-top: 22px;
+      max-width: 620px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .problem-list {
+      border-top: 1px solid var(--black);
+    }
+
+    .problem-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 30px;
+
+      padding: 25px 0;
+
+      border-bottom: 1px solid var(--line);
+
+      transition: .25s;
+    }
+
+    .problem-item:hover {
+      padding-left: 14px;
+      padding-right: 14px;
+      background: var(--bg);
+    }
+
+    .problem-text {
+      font-size: clamp(20px, 2.2vw, 30px);
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+
+    .problem-arrow {
+      color: var(--red);
+      font-weight: 900;
+      margin-left: 8px;
+    }
+
+    .problem-service {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 10px 18px;
+
+      border: 1px solid var(--black);
+      border-radius: 999px;
+
+      font-size: 13px;
+      font-weight: 800;
+      white-space: nowrap;
+
+      transition: .25s;
+    }
+
+    .problem-item:hover .problem-service {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    @media (max-width: 800px) {
+
+      .problem-section {
+        padding: 80px 6vw;
+      }
+
+      .problem-title {
+        letter-spacing: -2px;
+      }
+
+      .problem-item {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        padding: 22px 0;
+      }
+
+      .problem-item:hover {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+
+      .problem-service {
+        justify-self: start;
+      }
+
+    }
+
+  
+/* =========================
+   SERVICIOS INTERACTIVOS
+========================= */
+
+.service {
+  scroll-margin-top: 120px;
+  transition:
+    background .3s ease,
+    border-color .3s ease,
+    transform .3s ease,
+    box-shadow .3s ease;
+}
+
+.service.is-open {
+  background: var(--white);
+  border-color: var(--black);
+  box-shadow: 0 18px 45px rgba(0,0,0,.08);
+  transform: translateY(-3px);
+}
+
+.service.is-open .service-number {
+  color: var(--red);
+}
+
+.service-details {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows .4s ease,
+    opacity .25s ease,
+    margin-top .4s ease;
+  overflow: hidden;
+}
+
+.service-details-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.service.is-open .service-details {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  margin-top: 30px;
+}
+
+.service-details-inner {
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+}
+
+.service-details-label {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--red);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.service-details p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.service-details ul {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.service-details-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+
+.service-details-price {
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.service-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  border-radius: 999px;
+  background: var(--black);
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 800;
+  transition: .25s;
+}
+
+.service-cta:hover {
+  background: var(--red);
+  color: var(--white);
+}
+
+.problem-item.is-selected {
+  background: var(--bg);
+  padding-left: 14px;
+  padding-right: 14px;
+}
+
+.problem-item.is-selected .problem-service {
+  background: var(--black);
+  color: var(--white);
+}
+
+@media (max-width: 800px) {
+
+  .service.is-open {
+    transform: none;
+  }
+
+  .service-details-action {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .service-cta {
+    width: 100%;
+  }
+
+}
+
+</style>
 </head>
 
 
@@ -1208,6 +1469,103 @@
     </section>
 
 
+
+    <!-- =========================
+         ¿QUÉ ESTÁ PASANDO?
+    ========================= -->
+
+    <section class="problem-section" id="problemas">
+
+      <div class="problem-header">
+
+        <span class="problem-eyebrow">
+          ETSE · Diagnóstico
+        </span>
+
+        <h2 class="problem-title">
+          ¿Qué está<br>
+          pasando?
+        </h2>
+
+        <p class="problem-subtitle">
+          No necesitas saber de tecnología para pedir ayuda.
+          Cuéntanos qué está pasando y te mostramos por dónde empezar.
+        </p>
+
+      </div>
+
+      <div class="problem-list">
+
+        <a href="#servicio-pc" class="problem-item" data-service-target="#servicio-pc" aria-expanded="false">
+          <span class="problem-text">
+            Mi computador está lento
+            <span class="problem-arrow">→</span>
+          </span>
+
+          <span class="problem-service">
+            ETSE PC
+          </span>
+        </a>
+
+        <a href="#servicio-network" class="problem-item" data-service-target="#servicio-network" aria-expanded="false">
+          <span class="problem-text">
+            Mi Wi-Fi funciona mal
+            <span class="problem-arrow">→</span>
+          </span>
+
+          <span class="problem-service">
+            ETSE NETWORK
+          </span>
+        </a>
+
+        <a href="#servicio-sos" class="problem-item" data-service-target="#servicio-sos" aria-expanded="false">
+          <span class="problem-text">
+            Algo dejó de funcionar
+            <span class="problem-arrow">→</span>
+          </span>
+
+          <span class="problem-service">
+            ETSE SOS
+          </span>
+        </a>
+
+        <a href="#servicio-security" class="problem-item" data-service-target="#servicio-security" aria-expanded="false">
+          <span class="problem-text">
+            Quiero revisar mi seguridad
+            <span class="problem-arrow">→</span>
+          </span>
+
+          <span class="problem-service">
+            SECURITY CHECK
+          </span>
+        </a>
+
+        <a href="#servicio-backup" class="problem-item" data-service-target="#servicio-backup" aria-expanded="false">
+          <span class="problem-text">
+            Necesito proteger mis archivos
+            <span class="problem-arrow">→</span>
+          </span>
+
+          <span class="problem-service">
+            ETSE BACKUP
+          </span>
+        </a>
+
+        <a href="#servicio-pyme" class="problem-item" data-service-target="#servicio-pyme" aria-expanded="false">
+          <span class="problem-text">
+            Necesito TI para mi empresa
+            <span class="problem-arrow">→</span>
+          </span>
+
+          <span class="problem-service">
+            ETSE PYME
+          </span>
+        </a>
+
+      </div>
+
+    </section>
+
     <!-- =========================
          SERVICIOS
     ========================= -->
@@ -1232,7 +1590,7 @@
       <div class="services-grid">
 
 
-        <article class="service">
+        <article class="service" id="servicio-sos">
 
           <span class="service-number">
             01
@@ -1251,10 +1609,42 @@
             Desde $25.000
           </span>
 
+        
+          <div class="service-details">
+            <div class="service-details-inner">
+
+              <div>
+                <span class="service-details-label">QUÉ RESUELVE</span>
+                <p>
+                  Cuando algo dejó de funcionar y necesitas recuperar
+                  tu computador, software, impresora o conectividad.
+                </p>
+              </div>
+
+              <div>
+                <span class="service-details-label">QUÉ HACEMOS</span>
+                <ul>
+                  <li>Diagnóstico del problema</li>
+                  <li>Revisión de configuración</li>
+                  <li>Corrección de fallas</li>
+                  <li>Orientación para evitar que vuelva a ocurrir</li>
+                </ul>
+              </div>
+
+              <div class="service-details-action">
+                <span class="service-details-price">Desde $25.000</span>
+                <a href="#contacto" class="service-cta">
+                  Quiero resolverlo →
+                </a>
+              </div>
+
+            </div>
+          </div>
+
         </article>
 
 
-        <article class="service">
+        <article class="service" id="servicio-pc">
 
           <span class="service-number">
             02
@@ -1273,10 +1663,43 @@
             Desde $35.000
           </span>
 
+        
+          <div class="service-details">
+            <div class="service-details-inner">
+
+              <div>
+                <span class="service-details-label">QUÉ RESUELVE</span>
+                <p>
+                  Computadores lentos, problemas de rendimiento,
+                  configuraciones deficientes y equipos que necesitan
+                  una puesta a punto.
+                </p>
+              </div>
+
+              <div>
+                <span class="service-details-label">QUÉ HACEMOS</span>
+                <ul>
+                  <li>Diagnóstico de rendimiento</li>
+                  <li>Limpieza lógica y optimización</li>
+                  <li>Actualizaciones y configuración</li>
+                  <li>Recomendaciones de mejora</li>
+                </ul>
+              </div>
+
+              <div class="service-details-action">
+                <span class="service-details-price">Desde $35.000</span>
+                <a href="#contacto" class="service-cta">
+                  Quiero resolverlo →
+                </a>
+              </div>
+
+            </div>
+          </div>
+
         </article>
 
 
-        <article class="service">
+        <article class="service" id="servicio-network">
 
           <span class="service-number">
             03
@@ -1295,10 +1718,42 @@
             Desde $45.000
           </span>
 
+        
+          <div class="service-details">
+            <div class="service-details-inner">
+
+              <div>
+                <span class="service-details-label">QUÉ RESUELVE</span>
+                <p>
+                  Internet lento, Wi-Fi inestable, zonas sin cobertura,
+                  problemas de conexión o configuraciones de red.
+                </p>
+              </div>
+
+              <div>
+                <span class="service-details-label">QUÉ HACEMOS</span>
+                <ul>
+                  <li>Diagnóstico de conectividad</li>
+                  <li>Revisión de router y Wi-Fi</li>
+                  <li>Evaluación de cobertura</li>
+                  <li>Optimización de configuración</li>
+                </ul>
+              </div>
+
+              <div class="service-details-action">
+                <span class="service-details-price">Desde $45.000</span>
+                <a href="#contacto" class="service-cta">
+                  Quiero resolverlo →
+                </a>
+              </div>
+
+            </div>
+          </div>
+
         </article>
 
 
-        <article class="service">
+        <article class="service" id="servicio-backup">
 
           <span class="service-number">
             04
@@ -1317,10 +1772,42 @@
             Desde $40.000
           </span>
 
+        
+          <div class="service-details">
+            <div class="service-details-inner">
+
+              <div>
+                <span class="service-details-label">QUÉ RESUELVE</span>
+                <p>
+                  El riesgo de perder documentos, fotografías,
+                  archivos de trabajo y otra información importante.
+                </p>
+              </div>
+
+              <div>
+                <span class="service-details-label">QUÉ HACEMOS</span>
+                <ul>
+                  <li>Evaluación de información crítica</li>
+                  <li>Diseño de estrategia de respaldo</li>
+                  <li>Configuración de copias de seguridad</li>
+                  <li>Revisión de recuperación</li>
+                </ul>
+              </div>
+
+              <div class="service-details-action">
+                <span class="service-details-price">Desde $40.000</span>
+                <a href="#contacto" class="service-cta">
+                  Quiero resolverlo →
+                </a>
+              </div>
+
+            </div>
+          </div>
+
         </article>
 
 
-        <article class="service">
+        <article class="service" id="servicio-security">
 
           <span class="service-number">
             05
@@ -1339,10 +1826,42 @@
             Desde $60.000
           </span>
 
+        
+          <div class="service-details">
+            <div class="service-details-inner">
+
+              <div>
+                <span class="service-details-label">QUÉ RESUELVE</span>
+                <p>
+                  La incertidumbre de no saber si tus equipos,
+                  configuraciones y archivos están suficientemente protegidos.
+                </p>
+              </div>
+
+              <div>
+                <span class="service-details-label">QUÉ HACEMOS</span>
+                <ul>
+                  <li>Revisión básica de seguridad</li>
+                  <li>Configuraciones y actualizaciones</li>
+                  <li>Revisión de respaldos</li>
+                  <li>Identificación de puntos de exposición</li>
+                </ul>
+              </div>
+
+              <div class="service-details-action">
+                <span class="service-details-price">Desde $60.000</span>
+                <a href="#contacto" class="service-cta">
+                  Quiero resolverlo →
+                </a>
+              </div>
+
+            </div>
+          </div>
+
         </article>
 
 
-        <article class="service">
+        <article class="service" id="servicio-pyme">
 
           <span class="service-number">
             06
@@ -1360,6 +1879,38 @@
           <span class="price">
             Desde $99.990 / mes
           </span>
+
+        
+          <div class="service-details">
+            <div class="service-details-inner">
+
+              <div>
+                <span class="service-details-label">QUÉ RESUELVE</span>
+                <p>
+                  Empresas que necesitan apoyo TI constante sin tener
+                  que incorporar un departamento tecnológico interno.
+                </p>
+              </div>
+
+              <div>
+                <span class="service-details-label">QUÉ HACEMOS</span>
+                <ul>
+                  <li>Soporte TI</li>
+                  <li>Redes e infraestructura</li>
+                  <li>Mantenimiento y prevención</li>
+                  <li>Orientación en seguridad tecnológica</li>
+                </ul>
+              </div>
+
+              <div class="service-details-action">
+                <span class="service-details-price">Desde $99.990 / mes</span>
+                <a href="#contacto" class="service-cta">
+                  Quiero resolverlo →
+                </a>
+              </div>
+
+            </div>
+          </div>
 
         </article>
 
@@ -1768,6 +2319,90 @@
 
   </footer>
 
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const problemItems = document.querySelectorAll(".problem-item");
+  const services = document.querySelectorAll(".service");
+
+  function closeAllServices() {
+    services.forEach(service => {
+      service.classList.remove("is-open");
+      service.setAttribute("aria-expanded", "false");
+    });
+
+    problemItems.forEach(item => {
+      item.classList.remove("is-selected");
+      item.setAttribute("aria-expanded", "false");
+    });
+  }
+
+  problemItems.forEach(item => {
+
+    item.addEventListener("click", event => {
+
+      event.preventDefault();
+
+      const targetSelector = item.dataset.serviceTarget;
+      const targetService = document.querySelector(targetSelector);
+
+      if (!targetService) return;
+
+      const alreadyOpen = targetService.classList.contains("is-open");
+
+      closeAllServices();
+
+      if (alreadyOpen) {
+        targetService.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+        return;
+      }
+
+      targetService.classList.add("is-open");
+      targetService.setAttribute("aria-expanded", "true");
+
+      item.classList.add("is-selected");
+      item.setAttribute("aria-expanded", "true");
+
+      setTimeout(() => {
+        targetService.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+      }, 80);
+
+    });
+
+  });
+
+  services.forEach(service => {
+
+    service.addEventListener("click", event => {
+
+      const clickedInsideCTA =
+        event.target.closest(".service-cta");
+
+      if (clickedInsideCTA) return;
+
+      if (!service.classList.contains("is-open")) {
+
+        closeAllServices();
+
+        service.classList.add("is-open");
+        service.setAttribute("aria-expanded", "true");
+
+      }
+
+    });
+
+  });
+
+});
+</script>
 
 </body>
 </html>
