@@ -116,6 +116,59 @@
 
 
     /* =========================
+       MENU HAMBURGUESA
+    ========================= */
+
+    .menu-toggle {
+      display: none;
+
+      width: 44px;
+      height: 44px;
+
+      border: 1px solid var(--black);
+      border-radius: 999px;
+
+      background: transparent;
+      color: var(--black);
+
+      align-items: center;
+      justify-content: center;
+
+      cursor: pointer;
+
+      position: relative;
+      z-index: 1002;
+    }
+
+    .menu-toggle span {
+      position: absolute;
+
+      width: 18px;
+      height: 2px;
+
+      background: currentColor;
+
+      transition: .25s ease;
+    }
+
+    .menu-toggle span:first-child {
+      transform: translateY(-4px);
+    }
+
+    .menu-toggle span:last-child {
+      transform: translateY(4px);
+    }
+
+    .menu-toggle.is-open span:first-child {
+      transform: rotate(45deg);
+    }
+
+    .menu-toggle.is-open span:last-child {
+      transform: rotate(-45deg);
+    }
+
+
+    /* =========================
        TICKER
     ========================= */
 
@@ -904,6 +957,47 @@
 
       .nav-links {
         display: none;
+
+        position: absolute;
+        top: calc(100% + 1px);
+        left: 0;
+        right: 0;
+
+        padding: 18px 5vw 24px;
+
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+
+        background: rgba(244, 243, 239, 0.97);
+        backdrop-filter: blur(16px);
+
+        border-bottom: 1px solid var(--line);
+
+        box-shadow: 0 16px 35px rgba(0,0,0,.08);
+      }
+
+      .nav-links.is-open {
+        display: flex;
+      }
+
+      .nav-links > a {
+        padding: 16px 4px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .nav-links > a:last-child {
+        border-bottom: 0;
+        margin-top: 10px;
+      }
+
+      .nav-links .nav-cta {
+        text-align: center;
+        padding: 13px 18px;
+      }
+
+      .menu-toggle {
+        display: flex;
       }
 
       .ticker {
@@ -1005,7 +1099,7 @@
 
     }
 
-  
+
 
     /* =========================
        ¿QUÉ ESTÁ PASANDO?
@@ -1238,7 +1332,7 @@
 
     }
 
-  
+
 /* =========================
    SERVICIOS INTERACTIVOS
 ========================= */
@@ -1653,7 +1747,18 @@ body.diagnostico-open {
 
     </div>
 
-  </nav>
+
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-label="Abrir menú"
+      aria-expanded="false"
+    >
+      <span></span>
+      <span></span>
+    </button>
+
+</nav>
 
 
   <!-- =========================
@@ -1889,6 +1994,10 @@ body.diagnostico-open {
               <span>Diagnóstico</span>
             </div>
           </div>
+
+          <span class="problem-more" role="button" tabindex="0">
+            Ver servicio ETSE PC →
+          </span>
 
         </div>
 
@@ -2279,7 +2388,7 @@ body.diagnostico-open {
             Desde $25.000
           </span>
 
-        
+
           <div class="service-details">
             <div class="service-details-inner">
 
@@ -2333,7 +2442,7 @@ body.diagnostico-open {
             Desde $35.000
           </span>
 
-        
+
           <div class="service-details">
             <div class="service-details-inner">
 
@@ -2388,7 +2497,7 @@ body.diagnostico-open {
             Desde $45.000
           </span>
 
-        
+
           <div class="service-details">
             <div class="service-details-inner">
 
@@ -2442,7 +2551,7 @@ body.diagnostico-open {
             Desde $40.000
           </span>
 
-        
+
           <div class="service-details">
             <div class="service-details-inner">
 
@@ -2496,7 +2605,7 @@ body.diagnostico-open {
             Desde $60.000
           </span>
 
-        
+
           <div class="service-details">
             <div class="service-details-inner">
 
@@ -2550,7 +2659,7 @@ body.diagnostico-open {
             Desde $99.990 / mes
           </span>
 
-        
+
           <div class="service-details">
             <div class="service-details-inner">
 
@@ -3140,6 +3249,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const toggle = event.target.closest(".problem-toggle");
       const serviceButton = event.target.closest(".problem-service");
+      const serviceMore = event.target.closest(".problem-more");
 
       if (toggle) {
 
@@ -3162,7 +3272,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      if (serviceButton) {
+      if (serviceButton || serviceMore) {
 
         event.preventDefault();
 
@@ -3396,6 +3506,72 @@ document.addEventListener("DOMContentLoaded", () => {
       closeDiagnostic();
     }
 
+  });
+
+});
+</script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const menuToggle = document.querySelector(".menu-toggle");
+  const navLinks = document.querySelector(".nav-links");
+  const nav = document.querySelector("nav");
+
+  if (!menuToggle || !navLinks || !nav) return;
+
+  function closeMenu() {
+    menuToggle.classList.remove("is-open");
+    navLinks.classList.remove("is-open");
+
+    menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.setAttribute("aria-label", "Abrir menú");
+  }
+
+  function toggleMenu() {
+    const isOpen = menuToggle.classList.toggle("is-open");
+
+    navLinks.classList.toggle("is-open", isOpen);
+
+    menuToggle.setAttribute(
+      "aria-expanded",
+      String(isOpen)
+    );
+
+    menuToggle.setAttribute(
+      "aria-label",
+      isOpen ? "Cerrar menú" : "Abrir menú"
+    );
+  }
+
+  menuToggle.addEventListener("click", (event) => {
+    event.stopPropagation();
+    toggleMenu();
+  });
+
+  navLinks.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+      closeMenu();
+    });
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!nav.contains(event.target)) {
+      closeMenu();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeMenu();
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 800) {
+      closeMenu();
+    }
   });
 
 });
