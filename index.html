@@ -1051,15 +1051,9 @@
     }
 
     .problem-item {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: center;
-      gap: 30px;
-
+      display: block;
       padding: 25px 0;
-
       border-bottom: 1px solid var(--line);
-
       transition: .25s;
     }
 
@@ -1067,6 +1061,13 @@
       padding-left: 14px;
       padding-right: 14px;
       background: var(--bg);
+    }
+
+    .problem-top {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 30px;
     }
 
     .problem-text {
@@ -1085,21 +1086,121 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-
       padding: 10px 18px;
-
       border: 1px solid var(--black);
       border-radius: 999px;
-
       font-size: 13px;
       font-weight: 800;
       white-space: nowrap;
-
       transition: .25s;
     }
 
-    .problem-item:hover .problem-service {
+    .problem-item:hover .problem-service,
+    .problem-item.is-selected .problem-service {
       background: var(--black);
+      color: var(--white);
+    }
+
+    .problem-toggle {
+      display: inline-block;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .5px;
+      transition: .25s;
+    }
+
+    .problem-item:hover .problem-toggle,
+    .problem-item.is-selected .problem-toggle {
+      color: var(--red);
+    }
+
+    .problem-details {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition:
+        max-height .45s ease,
+        opacity .25s ease,
+        margin-top .35s ease;
+    }
+
+    .problem-item.is-selected .problem-details {
+      max-height: 900px;
+      opacity: 1;
+      margin-top: 26px;
+    }
+
+    .problem-item.is-selected .problem-toggle {
+      font-size: 0;
+    }
+
+    .problem-item.is-selected .problem-toggle::after {
+      content: "Ver menos ↑";
+      font-size: 12px;
+    }
+
+    .problem-details-label {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--red);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .problem-details p {
+      max-width: 900px;
+      margin: 0 0 16px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .problem-highlight {
+      color: var(--black) !important;
+      font-weight: 700;
+    }
+
+    .problem-help {
+      margin-top: 26px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+    }
+
+    .problem-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .problem-tags span {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .problem-more {
+      display: inline-flex;
+      margin-top: 22px;
+      padding: 11px 18px;
+      border-radius: 999px;
+      background: var(--black);
+      color: var(--white);
+      font-size: 12px;
+      font-weight: 800;
+      transition: .25s;
+    }
+
+    .problem-item:hover .problem-more,
+    .problem-item.is-selected .problem-more {
+      background: var(--red);
       color: var(--white);
     }
 
@@ -1114,8 +1215,6 @@
       }
 
       .problem-item {
-        grid-template-columns: 1fr;
-        gap: 14px;
         padding: 22px 0;
       }
 
@@ -1124,8 +1223,17 @@
         padding-right: 10px;
       }
 
+      .problem-top {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
       .problem-service {
         justify-self: start;
+      }
+
+      .problem-item.is-selected .problem-details {
+        max-height: 1200px;
       }
 
     }
@@ -1266,6 +1374,244 @@
 
 }
 
+
+/* =========================
+   ETSE DIAGNÓSTICO
+========================= */
+
+.diagnostico-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  background: rgba(17,17,17,.72);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s ease, visibility .3s ease;
+}
+
+.diagnostico-overlay.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.diagnostico-modal {
+  width: min(760px, 100%);
+  max-height: min(760px, 90vh);
+  overflow-y: auto;
+  background: var(--white);
+  padding: clamp(30px, 5vw, 60px);
+  position: relative;
+  transform: translateY(25px) scale(.98);
+  transition: transform .35s ease;
+}
+
+.diagnostico-overlay.is-active .diagnostico-modal {
+  transform: translateY(0) scale(1);
+}
+
+.diagnostico-close {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--black);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--black);
+  font-size: 22px;
+  cursor: pointer;
+  transition: .25s;
+}
+
+.diagnostico-close:hover {
+  background: var(--black);
+  color: var(--white);
+}
+
+.diagnostico-eyebrow {
+  display: block;
+  margin-bottom: 16px;
+  color: var(--red);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.diagnostico-title {
+  max-width: 600px;
+  margin: 0;
+  font-size: clamp(38px, 6vw, 68px);
+  line-height: .95;
+  letter-spacing: -3px;
+  font-weight: 900;
+}
+
+.diagnostico-intro {
+  max-width: 560px;
+  margin: 20px 0 35px;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.diagnostico-options {
+  display: grid;
+  gap: 10px;
+}
+
+.diagnostico-option {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  background: var(--white);
+  color: var(--black);
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 800;
+  transition: .25s;
+}
+
+.diagnostico-option:hover {
+  padding-left: 25px;
+  padding-right: 25px;
+  border-color: var(--black);
+  background: var(--bg);
+}
+
+.diagnostico-option-arrow {
+  color: var(--red);
+  font-size: 20px;
+}
+
+.diagnostico-result {
+  display: none;
+}
+
+.diagnostico-result.is-visible {
+  display: block;
+}
+
+.diagnostico-result-label {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--red);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.diagnostico-result h3 {
+  margin: 0;
+  font-size: clamp(34px, 5vw, 54px);
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+.diagnostico-result-description {
+  max-width: 560px;
+  margin: 18px 0 25px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.diagnostico-result-price {
+  margin-bottom: 25px;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.diagnostico-result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.diagnostico-back {
+  border: 1px solid var(--black);
+  background: var(--white);
+  color: var(--black);
+  border-radius: 999px;
+  padding: 14px 22px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.diagnostico-contact {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 14px 22px;
+  background: var(--black);
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 800;
+  transition: .25s;
+}
+
+.diagnostico-contact:hover {
+  background: var(--red);
+}
+
+.diagnostico-footer {
+  margin-top: 35px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+body.diagnostico-open {
+  overflow: hidden;
+}
+
+@media (max-width: 800px) {
+
+  .diagnostico-overlay {
+    padding: 12px;
+    align-items: flex-end;
+  }
+
+  .diagnostico-modal {
+    max-height: 92vh;
+    padding: 30px 22px;
+  }
+
+  .diagnostico-title {
+    letter-spacing: -2px;
+  }
+
+  .diagnostico-option {
+    padding: 17px;
+  }
+
+  .diagnostico-result-actions {
+    flex-direction: column;
+  }
+
+  .diagnostico-back,
+  .diagnostico-contact {
+    width: 100%;
+  }
+
+}
+
 </style>
 </head>
 
@@ -1301,7 +1647,7 @@
         Nosotros
       </a>
 
-      <a href="#contacto" class="nav-cta">
+      <a href="#diagnostico" class="nav-cta js-diagnostico">
         Habla con ETSE
       </a>
 
@@ -1476,95 +1822,419 @@
 
     <section class="problem-section" id="problemas">
 
-      <div class="problem-header">
+  <div class="problem-header">
 
-        <span class="problem-eyebrow">
-          ETSE · Diagnóstico
-        </span>
+    <span class="problem-eyebrow">
+      ETSE · Diagnóstico
+    </span>
 
-        <h2 class="problem-title">
-          ¿Qué está<br>
-          pasando?
-        </h2>
+    <h2 class="problem-title">
+      ¿Qué está<br>
+      pasando?
+    </h2>
 
-        <p class="problem-subtitle">
-          No necesitas saber de tecnología para pedir ayuda.
-          Cuéntanos qué está pasando y te mostramos por dónde empezar.
-        </p>
+    <p class="problem-subtitle">
+      No necesitas saber de tecnología para pedir ayuda.
+      Cuéntanos qué está pasando y te mostramos por dónde empezar.
+    </p>
 
-      </div>
+  </div>
 
-      <div class="problem-list">
+  <div class="problem-list">
 
-        <a href="#servicio-pc" class="problem-item" data-service-target="#servicio-pc" aria-expanded="false">
+    <a href="#servicio-pc" class="problem-item"
+       data-service-target="#servicio-pc" aria-expanded="false">
+
+      <div class="problem-content">
+
+        <div class="problem-top">
           <span class="problem-text">
             Mi computador está lento
             <span class="problem-arrow">→</span>
           </span>
 
-          <span class="problem-service">
-            ETSE PC
-          </span>
-        </a>
+          <span class="problem-service">ETSE PC</span>
+        </div>
 
-        <a href="#servicio-network" class="problem-item" data-service-target="#servicio-network" aria-expanded="false">
+        <div class="problem-details">
+
+          <span class="problem-details-label">¿TE PASA ESTO?</span>
+
+          <p>
+            Al principio notas que el computador demora un poco más
+            en encender. Después los programas tardan en abrir,
+            el navegador se queda pensando, aparecen pequeñas pausas
+            o tienes que esperar para hacer cosas que antes eran
+            instantáneas.
+          </p>
+
+          <p>
+            Con el tiempo empiezas a cerrar programas, reiniciar el
+            equipo o buscar soluciones en Internet, pero el problema
+            vuelve. Y cuando necesitas trabajar, estudiar o hacer
+            algo importante, el computador simplemente
+            <strong>no responde como debería.</strong>
+          </p>
+
+          <div class="problem-help">
+            <span class="problem-details-label">
+              ETSE PUEDE AYUDARTE CON
+            </span>
+
+            <div class="problem-tags">
+              <span>Rendimiento</span>
+              <span>Configuración</span>
+              <span>Actualizaciones</span>
+              <span>Limpieza lógica</span>
+              <span>Diagnóstico</span>
+            </div>
+          </div>
+
+        </div>
+
+        <span class="problem-toggle">
+          Ver más ↓
+        </span>
+
+      </div>
+    </a>
+
+
+    <a href="#servicio-network" class="problem-item"
+       data-service-target="#servicio-network" aria-expanded="false">
+
+      <div class="problem-content">
+
+        <div class="problem-top">
           <span class="problem-text">
             Mi Wi-Fi funciona mal
             <span class="problem-arrow">→</span>
           </span>
 
-          <span class="problem-service">
-            ETSE NETWORK
-          </span>
-        </a>
+          <span class="problem-service">ETSE NETWORK</span>
+        </div>
 
-        <a href="#servicio-sos" class="problem-item" data-service-target="#servicio-sos" aria-expanded="false">
+        <div class="problem-details">
+
+          <span class="problem-details-label">¿TE PASA ESTO?</span>
+
+          <p>
+            El Internet funciona bien en una habitación, pero en otra
+            la señal es mala. El celular pierde conexión, una
+            videollamada se corta, Netflix se queda cargando o el
+            computador tarda demasiado en abrir una página.
+          </p>
+
+          <p>
+            Quizás ya reiniciaste el router varias veces y por un rato
+            parece funcionar, pero después vuelve a pasar. Empiezas a
+            preguntarte si el problema es tu compañía de Internet,
+            el router, la señal o alguno de tus dispositivos.
+          </p>
+
+          <div class="problem-help">
+            <span class="problem-details-label">
+              ETSE PUEDE AYUDARTE CON
+            </span>
+
+            <div class="problem-tags">
+              <span>Wi-Fi</span>
+              <span>Router</span>
+              <span>Cobertura</span>
+              <span>Conectividad</span>
+              <span>Configuración de red</span>
+            </div>
+          </div>
+
+        </div>
+
+        <span class="problem-toggle">
+          Ver más ↓
+        </span>
+
+      </div>
+    </a>
+
+
+    <a href="#servicio-sos" class="problem-item"
+       data-service-target="#servicio-sos" aria-expanded="false">
+
+      <div class="problem-content">
+
+        <div class="problem-top">
           <span class="problem-text">
             Algo dejó de funcionar
             <span class="problem-arrow">→</span>
           </span>
 
-          <span class="problem-service">
-            ETSE SOS
-          </span>
-        </a>
+          <span class="problem-service">ETSE SOS</span>
+        </div>
 
-        <a href="#servicio-security" class="problem-item" data-service-target="#servicio-security" aria-expanded="false">
+        <div class="problem-details">
+
+          <span class="problem-details-label">¿TE PASA ESTO?</span>
+
+          <p>
+            Ayer funcionaba perfectamente y hoy simplemente no.
+            Una impresora dejó de imprimir, un programa no abre,
+            el computador muestra un error, un dispositivo no conecta
+            o alguna configuración cambió y no sabes por qué.
+          </p>
+
+          <p>
+            Intentas solucionarlo reiniciando, desconectando cosas
+            o buscando tutoriales. A veces funciona, pero otras veces
+            terminas más confundido que al principio.
+          </p>
+
+          <p class="problem-highlight">
+            “¿Qué hice para que dejara de funcionar?”
+          </p>
+
+          <p>
+            No necesitas saberlo. Primero hay que encontrar qué pasó.
+          </p>
+
+          <div class="problem-help">
+            <span class="problem-details-label">
+              ETSE PUEDE AYUDARTE CON
+            </span>
+
+            <div class="problem-tags">
+              <span>Diagnóstico</span>
+              <span>Configuración</span>
+              <span>Resolución de problemas</span>
+              <span>Recuperación del funcionamiento</span>
+            </div>
+          </div>
+
+        </div>
+
+        <span class="problem-toggle">
+          Ver más ↓
+        </span>
+
+      </div>
+    </a>
+
+
+    <a href="#servicio-security" class="problem-item"
+       data-service-target="#servicio-security" aria-expanded="false">
+
+      <div class="problem-content">
+
+        <div class="problem-top">
           <span class="problem-text">
             Quiero revisar mi seguridad
             <span class="problem-arrow">→</span>
           </span>
 
-          <span class="problem-service">
-            SECURITY CHECK
-          </span>
-        </a>
+          <span class="problem-service">SECURITY CHECK</span>
+        </div>
 
-        <a href="#servicio-backup" class="problem-item" data-service-target="#servicio-backup" aria-expanded="false">
+        <div class="problem-details">
+
+          <span class="problem-details-label">¿TE PASA ESTO?</span>
+
+          <p>
+            Tienes computador, celular, Wi-Fi, cuentas y archivos
+            importantes, pero no sabes realmente qué tan protegidos
+            están.
+          </p>
+
+          <p>
+            Quizás hace tiempo que no actualizas algunos equipos,
+            utilizas las mismas contraseñas en distintos servicios,
+            nunca has revisado la configuración del router o tienes
+            archivos importantes guardados en un solo lugar.
+          </p>
+
+          <p>
+            Mientras todo funciona, parece que no pasa nada.
+            Hasta que empiezas a pensar:
+          </p>
+
+          <p class="problem-highlight">
+            “¿Y si alguien entra?”<br>
+            “¿Y si pierdo mis archivos?”<br>
+            “¿Y si tengo algo mal configurado y ni siquiera lo sé?”
+          </p>
+
+          <p>
+            ETSE revisa contigo los puntos básicos para entender
+            dónde estás bien y dónde conviene mejorar.
+          </p>
+
+          <div class="problem-help">
+            <span class="problem-details-label">
+              ETSE PUEDE AYUDARTE CON
+            </span>
+
+            <div class="problem-tags">
+              <span>Configuraciones</span>
+              <span>Actualizaciones</span>
+              <span>Respaldos</span>
+              <span>Seguridad básica</span>
+              <span>Puntos de exposición</span>
+            </div>
+          </div>
+
+        </div>
+
+        <span class="problem-toggle">
+          Ver más ↓
+        </span>
+
+      </div>
+    </a>
+
+
+    <a href="#servicio-backup" class="problem-item"
+       data-service-target="#servicio-backup" aria-expanded="false">
+
+      <div class="problem-content">
+
+        <div class="problem-top">
           <span class="problem-text">
             Necesito proteger mis archivos
             <span class="problem-arrow">→</span>
           </span>
 
-          <span class="problem-service">
-            ETSE BACKUP
-          </span>
-        </a>
+          <span class="problem-service">ETSE BACKUP</span>
+        </div>
 
-        <a href="#servicio-pyme" class="problem-item" data-service-target="#servicio-pyme" aria-expanded="false">
+        <div class="problem-details">
+
+          <span class="problem-details-label">¿TE PASA ESTO?</span>
+
+          <p>
+            Tienes fotografías, documentos, trabajos, información
+            de clientes o archivos que simplemente
+            <strong>no puedes perder.</strong>
+          </p>
+
+          <p>
+            Pero están guardados en el computador, quizás en un disco
+            externo que hace tiempo no revisas, o repartidos entre
+            distintos dispositivos.
+          </p>
+
+          <p>
+            Mientras todo funciona, no parece urgente.
+            Hasta que aparece el miedo:
+          </p>
+
+          <p class="problem-highlight">
+            ¿Qué pasa si se rompe el computador?<br>
+            ¿Si me roban el equipo?<br>
+            ¿Si borro algo por accidente?<br>
+            ¿Si un virus cifra mis archivos?
+          </p>
+
+          <p>
+            Un respaldo no sirve solamente para guardar archivos.
+            Sirve para tener una segunda oportunidad cuando algo
+            sale mal.
+          </p>
+
+          <div class="problem-help">
+            <span class="problem-details-label">
+              ETSE PUEDE AYUDARTE CON
+            </span>
+
+            <div class="problem-tags">
+              <span>Estrategia de respaldo</span>
+              <span>Configuración</span>
+              <span>Protección de información</span>
+              <span>Recuperación</span>
+            </div>
+          </div>
+
+        </div>
+
+        <span class="problem-toggle">
+          Ver más ↓
+        </span>
+
+      </div>
+    </a>
+
+
+    <a href="#servicio-pyme" class="problem-item"
+       data-service-target="#servicio-pyme" aria-expanded="false">
+
+      <div class="problem-content">
+
+        <div class="problem-top">
           <span class="problem-text">
             Necesito TI para mi empresa
             <span class="problem-arrow">→</span>
           </span>
 
-          <span class="problem-service">
-            ETSE PYME
-          </span>
-        </a>
+          <span class="problem-service">ETSE PYME</span>
+        </div>
+
+        <div class="problem-details">
+
+          <span class="problem-details-label">¿TE PASA ESTO?</span>
+
+          <p>
+            Tu empresa depende de computadores, Internet, impresoras,
+            archivos, sistemas y cuentas para funcionar.
+          </p>
+
+          <p>
+            Pero cuando algo falla, eres tú —o alguien de la empresa—
+            quien termina intentando solucionarlo.
+          </p>
+
+          <p>
+            Un computador lento se transforma en una mañana perdida.
+            Una caída de Internet detiene el trabajo. Una impresora
+            que falla se convierte en horas buscando soluciones.
+          </p>
+
+          <p>
+            Y los problemas tecnológicos empiezan a quitarte tiempo
+            que deberías estar dedicando al negocio.
+          </p>
+
+          <p>
+            Quizás todavía no necesitas contratar un departamento
+            TI completo.
+          </p>
+
+          <p class="problem-highlight">
+            Pero sí necesitas a alguien que se haga cargo.
+          </p>
+
+          <div class="problem-help">
+            <span class="problem-details-label">
+              ETSE PUEDE AYUDARTE CON
+            </span>
+
+            <div class="problem-tags">
+              <span>Soporte TI</span>
+              <span>Redes</span>
+              <span>Mantenimiento</span>
+              <span>Seguridad</span>
+              <span>Prevención</span>
+              <span>Acompañamiento tecnológico</span>
+            </div>
+          </div>
+
+        </div>
+
+        <span class="problem-toggle">
+          Ver más ↓
+        </span>
 
       </div>
+    </a>
 
-    </section>
+  </div>
+
+</section>
 
     <!-- =========================
          SERVICIOS
@@ -2300,7 +2970,132 @@
 
     </section>
 
-  </main>
+
+<!-- =========================
+     ETSE DIAGNÓSTICO
+========================= -->
+
+<div class="diagnostico-overlay" id="diagnostico" aria-hidden="true">
+
+  <div class="diagnostico-modal" role="dialog" aria-modal="true" aria-labelledby="diagnostico-title">
+
+    <button
+      class="diagnostico-close"
+      type="button"
+      aria-label="Cerrar diagnóstico"
+    >
+      ×
+    </button>
+
+    <div class="diagnostico-step" id="diagnostico-step">
+
+      <span class="diagnostico-eyebrow">
+        ETSE · Diagnóstico
+      </span>
+
+      <h2 class="diagnostico-title" id="diagnostico-title">
+        ¿Qué está pasando?
+      </h2>
+
+      <p class="diagnostico-intro">
+        No necesitas saber de tecnología para pedir ayuda.
+        Selecciona lo que más se parece a tu problema
+        y ETSE te mostrará por dónde empezar.
+      </p>
+
+      <div class="diagnostico-options">
+
+        <button class="diagnostico-option" data-service="pc">
+          <span>💻 Mi computador está lento</span>
+          <span class="diagnostico-option-arrow">→</span>
+        </button>
+
+        <button class="diagnostico-option" data-service="network">
+          <span>📡 Mi Internet / Wi-Fi funciona mal</span>
+          <span class="diagnostico-option-arrow">→</span>
+        </button>
+
+        <button class="diagnostico-option" data-service="sos">
+          <span>🛠️ Algo dejó de funcionar</span>
+          <span class="diagnostico-option-arrow">→</span>
+        </button>
+
+        <button class="diagnostico-option" data-service="security">
+          <span>🔐 Quiero revisar mi seguridad</span>
+          <span class="diagnostico-option-arrow">→</span>
+        </button>
+
+        <button class="diagnostico-option" data-service="backup">
+          <span>💾 Necesito proteger mis archivos</span>
+          <span class="diagnostico-option-arrow">→</span>
+        </button>
+
+        <button class="diagnostico-option" data-service="pyme">
+          <span>🏢 Necesito TI para mi empresa</span>
+          <span class="diagnostico-option-arrow">→</span>
+        </button>
+
+        <button class="diagnostico-option" data-service="unknown">
+          <span>🤷 No estoy seguro</span>
+          <span class="diagnostico-option-arrow">→</span>
+        </button>
+
+      </div>
+
+      <div class="diagnostico-footer">
+        ETSE · Tecnología que funciona. Seguridad que protege.
+      </div>
+
+    </div>
+
+
+    <div class="diagnostico-result" id="diagnostico-result">
+
+      <span class="diagnostico-result-label">
+        Recomendación ETSE
+      </span>
+
+      <h3 id="diagnostico-result-title"></h3>
+
+      <p
+        class="diagnostico-result-description"
+        id="diagnostico-result-description"
+      ></p>
+
+      <div
+        class="diagnostico-result-price"
+        id="diagnostico-result-price"
+      ></div>
+
+      <div class="diagnostico-result-actions">
+
+        <button
+          class="diagnostico-back"
+          type="button"
+          id="diagnostico-back"
+        >
+          ← Volver
+        </button>
+
+        <a
+          href="#contacto"
+          class="diagnostico-contact"
+          id="diagnostico-contact"
+          target="_blank"
+          rel="noopener"
+        >
+          Quiero resolverlo →
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</main>
 
 
   <!-- =========================
@@ -2343,37 +3138,60 @@ document.addEventListener("DOMContentLoaded", () => {
 
     item.addEventListener("click", event => {
 
-      event.preventDefault();
+      const toggle = event.target.closest(".problem-toggle");
+      const serviceButton = event.target.closest(".problem-service");
 
-      const targetSelector = item.dataset.serviceTarget;
-      const targetService = document.querySelector(targetSelector);
+      if (toggle) {
 
-      if (!targetService) return;
+        event.preventDefault();
 
-      const alreadyOpen = targetService.classList.contains("is-open");
+        const alreadyOpen = item.classList.contains("is-selected");
 
-      closeAllServices();
-
-      if (alreadyOpen) {
-        targetService.scrollIntoView({
-          behavior: "smooth",
-          block: "center"
+        problemItems.forEach(otherItem => {
+          otherItem.classList.remove("is-selected");
+          otherItem.setAttribute("aria-expanded", "false");
         });
+
+        if (alreadyOpen) {
+          return;
+        }
+
+        item.classList.add("is-selected");
+        item.setAttribute("aria-expanded", "true");
+
         return;
       }
 
-      targetService.classList.add("is-open");
-      targetService.setAttribute("aria-expanded", "true");
+      if (serviceButton) {
 
-      item.classList.add("is-selected");
-      item.setAttribute("aria-expanded", "true");
+        event.preventDefault();
 
-      setTimeout(() => {
-        targetService.scrollIntoView({
-          behavior: "smooth",
-          block: "center"
+        const targetSelector = item.dataset.serviceTarget;
+        const targetService = document.querySelector(targetSelector);
+
+        if (!targetService) return;
+
+        problemItems.forEach(otherItem => {
+          otherItem.classList.remove("is-selected");
+          otherItem.setAttribute("aria-expanded", "false");
         });
-      }, 80);
+
+        services.forEach(service => {
+          service.classList.remove("is-open");
+          service.setAttribute("aria-expanded", "false");
+        });
+
+        targetService.classList.add("is-open");
+        targetService.setAttribute("aria-expanded", "true");
+
+        setTimeout(() => {
+          targetService.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+          });
+        }, 80);
+
+      }
 
     });
 
@@ -2398,6 +3216,185 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
     });
+
+  });
+
+});
+</script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const overlay = document.getElementById("diagnostico");
+  const closeButton = document.querySelector(".diagnostico-close");
+  const step = document.getElementById("diagnostico-step");
+  const result = document.getElementById("diagnostico-result");
+  const backButton = document.getElementById("diagnostico-back");
+  const resultTitle = document.getElementById("diagnostico-result-title");
+  const resultDescription = document.getElementById("diagnostico-result-description");
+  const resultPrice = document.getElementById("diagnostico-result-price");
+  const resultContact = document.getElementById("diagnostico-contact");
+
+  const services = {
+
+    pc: {
+      title: "ETSE PC",
+      description:
+        "Tu computador necesita una puesta a punto. Revisamos rendimiento, configuración, actualizaciones y posibles causas de lentitud.",
+      price: "Desde $35.000",
+      message:
+        "Hola ETSE, necesito ayuda porque mi computador está lento. Me interesa ETSE PC."
+    },
+
+    network: {
+      title: "ETSE NETWORK",
+      description:
+        "Revisamos Internet, Wi-Fi, router, cobertura y conectividad para encontrar dónde está el problema.",
+      price: "Desde $45.000",
+      message:
+        "Hola ETSE, tengo problemas con mi Internet/Wi-Fi. Me interesa ETSE NETWORK."
+    },
+
+    sos: {
+      title: "ETSE SOS",
+      description:
+        "Si algo dejó de funcionar, partimos por el diagnóstico y buscamos una solución concreta sin complicar las cosas.",
+      price: "Desde $25.000",
+      message:
+        "Hola ETSE, necesito ayuda porque algo dejó de funcionar. Me interesa ETSE SOS."
+    },
+
+    security: {
+      title: "SECURITY CHECK",
+      description:
+        "Revisamos configuraciones, actualizaciones, respaldos y puntos básicos de exposición para ayudarte a entender el estado de tu seguridad.",
+      price: "Desde $60.000",
+      message:
+        "Hola ETSE, quiero revisar la seguridad de mis equipos. Me interesa SECURITY CHECK."
+    },
+
+    backup: {
+      title: "ETSE BACKUP",
+      description:
+        "Diseñamos una estrategia de respaldo para proteger tus archivos importantes y reducir el riesgo de perder información.",
+      price: "Desde $40.000",
+      message:
+        "Hola ETSE, necesito proteger mis archivos. Me interesa ETSE BACKUP."
+    },
+
+    pyme: {
+      title: "ETSE PYME",
+      description:
+        "Tu departamento TI externo. Soporte, redes, mantenimiento y seguridad para que puedas concentrarte en tu negocio.",
+      price: "Desde $99.990 / mes",
+      message:
+        "Hola ETSE, necesito soporte TI para mi empresa. Me interesa ETSE PYME."
+    },
+
+    unknown: {
+      title: "ETSE DIAGNÓSTICO",
+      description:
+        "No importa si no sabes exactamente qué servicio necesitas. Cuéntanos qué está pasando y te ayudamos a encontrar el punto de partida correcto.",
+      price: "Evaluamos tu caso",
+      message:
+        "Hola ETSE, no estoy seguro de qué servicio necesito y quisiera orientación."
+    }
+
+  };
+
+
+  function openDiagnostic() {
+
+    overlay.classList.add("is-active");
+    overlay.setAttribute("aria-hidden", "false");
+    document.body.classList.add("diagnostico-open");
+
+    step.style.display = "block";
+    result.classList.remove("is-visible");
+
+  }
+
+
+  function closeDiagnostic() {
+
+    overlay.classList.remove("is-active");
+    overlay.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("diagnostico-open");
+
+    setTimeout(() => {
+      step.style.display = "block";
+      result.classList.remove("is-visible");
+    }, 300);
+
+  }
+
+
+  document.querySelectorAll(".js-diagnostico").forEach(button => {
+
+    button.addEventListener("click", event => {
+
+      event.preventDefault();
+
+      openDiagnostic();
+
+    });
+
+  });
+
+
+  document.querySelectorAll(".diagnostico-option").forEach(option => {
+
+    option.addEventListener("click", () => {
+
+      const service = services[option.dataset.service];
+
+      if (!service) return;
+
+      resultTitle.textContent = service.title;
+      resultDescription.textContent = service.description;
+      resultPrice.textContent = service.price;
+
+      /*
+       * El correo queda preparado con el problema seleccionado.
+       */
+      resultContact.href =
+        "https://wa.me/56945810025?text=" +
+        encodeURIComponent(service.message);
+
+      step.style.display = "none";
+      result.classList.add("is-visible");
+
+    });
+
+  });
+
+
+  backButton.addEventListener("click", () => {
+
+    result.classList.remove("is-visible");
+    step.style.display = "block";
+
+  });
+
+
+  closeButton.addEventListener("click", closeDiagnostic);
+
+
+  overlay.addEventListener("click", event => {
+
+    if (event.target === overlay) {
+      closeDiagnostic();
+    }
+
+  });
+
+
+  document.addEventListener("keydown", event => {
+
+    if (event.key === "Escape" && overlay.classList.contains("is-active")) {
+      closeDiagnostic();
+    }
 
   });
 
