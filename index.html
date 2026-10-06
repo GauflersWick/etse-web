@@ -6,11 +6,23 @@
 
   <title>ETSE — Tecnología que funciona. Seguridad que protege.</title>
 
-  <meta name="description"
-        content="ETSE conecta soporte TI, redes y ciberseguridad en una sola experiencia: simple, profesional y 
-segura.">
+  <meta
+    name="description"
+    content="ETSE — Soporte TI, redes y ciberseguridad para personas y pequeñas empresas."
+  >
 
   <style>
+
+    :root {
+      --bg: #f4f3ef;
+      --black: #111111;
+      --muted: #6b6b6b;
+      --line: #d8d7d2;
+      --red: #e3262e;
+      --white: #ffffff;
+      --dark: #111111;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -22,10 +34,9 @@ segura.">
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue",
-                   Helvetica, Arial, sans-serif;
-      background: #fff;
-      color: #111;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--black);
       line-height: 1.5;
     }
 
@@ -34,510 +45,1388 @@ segura.">
       text-decoration: none;
     }
 
-    .container {
-      width: min(1180px, calc(100% - 48px));
-      margin: 0 auto;
-    }
 
-    /* NAV */
+    /* =========================
+       NAV
+    ========================= */
 
     nav {
-      position: sticky;
+      position: fixed;
       top: 0;
-      z-index: 100;
-      background: rgba(255,255,255,.92);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid #eee;
-    }
+      left: 0;
+      width: 100%;
+      z-index: 1000;
 
-    .nav-inner {
-      height: 72px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+
+      padding: 20px 5vw;
+
+      background: rgba(244, 243, 239, 0.90);
+      backdrop-filter: blur(16px);
+
+      border-bottom: 1px solid rgba(0,0,0,.08);
     }
 
     .logo {
-      font-size: 28px;
-      font-weight: 800;
-      letter-spacing: -1.5px;
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: -1px;
     }
 
     .logo span {
-      color: #e10600;
+      color: var(--red);
     }
 
     .nav-links {
       display: flex;
-      gap: 32px;
       align-items: center;
+      gap: 28px;
+
       font-size: 14px;
-    }
-
-    .nav-links a:hover {
-      opacity: .55;
-    }
-
-    .nav-cta {
-      padding: 11px 18px;
-      background: #111;
-      color: white;
-      border-radius: 999px;
       font-weight: 600;
     }
 
-    /* HERO */
-
-    .hero {
-      min-height: 86vh;
-      display: flex;
-      align-items: center;
-      padding: 90px 0;
+    .nav-links > a:not(.nav-cta) {
+      transition: .25s;
     }
 
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap: 80px;
-      align-items: end;
+    .nav-links > a:not(.nav-cta):hover {
+      color: var(--red);
     }
 
-    .eyebrow {
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: #e10600;
-      margin-bottom: 24px;
-    }
+    /* BOTÓN HABLA CON ETSE */
 
-    h1 {
-      font-size: clamp(64px, 8vw, 118px);
-      line-height: .9;
-      letter-spacing: -6px;
-      max-width: 900px;
-    }
+    .nav-cta {
+      background: var(--black);
+      color: var(--white) !important;
 
-    .hero-copy {
-      font-size: 21px;
-      color: #555;
-      max-width: 480px;
-      margin-top: 38px;
-    }
+      padding: 11px 18px;
 
-    .hero-actions {
-      display: flex;
-      gap: 14px;
-      margin-top: 38px;
-      flex-wrap: wrap;
-    }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 15px 24px;
       border-radius: 999px;
-      font-weight: 700;
-      font-size: 14px;
+
+      transition: .25s;
     }
 
-    .button-primary {
-      background: #111;
-      color: #fff;
+    .nav-cta:hover {
+      background: var(--red);
+      color: white !important;
     }
 
-    .button-secondary {
-      border: 1px solid #ddd;
-    }
 
-    .hero-card {
-      background: #111;
+    /* =========================
+       TICKER
+    ========================= */
+
+    .ticker {
+      position: relative;
+
+      margin-top: 72px;
+
+      height: 44px;
+
+      display: flex;
+      align-items: center;
+
+      overflow: hidden;
+
+      background: var(--black);
       color: white;
-      padding: 34px;
-      min-height: 330px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
 
-    .hero-card-label {
-      font-size: 12px;
-      letter-spacing: .15em;
-      color: #aaa;
-    }
-
-    .hero-card-title {
-      font-size: 42px;
-      line-height: 1;
-      letter-spacing: -2px;
-    }
-
-    .hero-card-bottom {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .pill {
-      border: 1px solid #444;
-      border-radius: 999px;
-      padding: 8px 12px;
-      font-size: 12px;
-      color: #ddd;
-    }
-
-    /* SECTIONS */
-
-    section {
-      padding: 120px 0;
-    }
-
-    .section-head {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 60px;
-      margin-bottom: 70px;
-    }
-
-    .section-number {
-      font-size: 13px;
-      color: #e10600;
-      font-weight: 700;
-      letter-spacing: .15em;
-    }
-
-    .section-title {
-      font-size: clamp(42px, 6vw, 78px);
-      line-height: .95;
-      letter-spacing: -4px;
-    }
-
-    .section-description {
-      margin-top: 25px;
-      font-size: 19px;
-      color: #666;
-      max-width: 700px;
-    }
-
-    /* SERVICES */
-
-    .services {
-      border-top: 1px solid #ddd;
-    }
-
-    .service {
-      display: grid;
-      grid-template-columns: 80px 1fr auto;
-      gap: 30px;
-      align-items: center;
-      padding: 30px 0;
-      border-bottom: 1px solid #ddd;
-    }
-
-    .service-number {
-      font-size: 13px;
-      color: #999;
-    }
-
-    .service-name {
-      font-size: 30px;
-      font-weight: 700;
-      letter-spacing: -1px;
-    }
-
-    .service-description {
-      font-size: 14px;
-      color: #777;
-      margin-top: 4px;
-    }
-
-    .service-price {
-      font-size: 15px;
-      font-weight: 700;
       white-space: nowrap;
     }
 
-    /* PROCESS */
+    .ticker-track {
+      display: inline-flex;
+      align-items: center;
 
-    .process-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      border-top: 1px solid #ddd;
+      gap: 50px;
+
+      animation: ticker 25s linear infinite;
     }
 
-    .process {
-      padding: 34px;
-      border-right: 1px solid #ddd;
-    }
-
-    .process:last-child {
-      border-right: none;
-    }
-
-    .process-number {
-      font-size: 13px;
-      color: #e10600;
+    .ticker-item {
+      font-size: 12px;
       font-weight: 700;
+
+      letter-spacing: 2px;
+
+      text-transform: uppercase;
     }
 
-    .process h3 {
-      font-size: 32px;
-      margin: 70px 0 14px;
-      letter-spacing: -1px;
+    .ticker-item::before {
+      content: "●";
+
+      color: var(--red);
+
+      margin-right: 18px;
     }
 
-    .process p {
-      color: #666;
+    @keyframes ticker {
+
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+
     }
 
-    /* PYME */
 
-    .pyme {
-      background: #111;
-      color: white;
-    }
+    /* =========================
+       HERO
+    ========================= */
 
-    .pyme .section-number {
-      color: #ff3b30;
-    }
+    .hero {
+      min-height: 88vh;
 
-    .pyme-content {
-      display: grid;
-      grid-template-columns: 1.3fr .7fr;
-      gap: 80px;
-      align-items: end;
-    }
-
-    .pyme h2 {
-      font-size: clamp(50px, 7vw, 96px);
-      line-height: .92;
-      letter-spacing: -5px;
-    }
-
-    .pyme-text {
-      color: #aaa;
-      font-size: 18px;
-    }
-
-    .pyme-price {
-      font-size: 24px;
-      color: white;
-      margin-top: 28px;
-      font-weight: 700;
-    }
-
-    /* ABOUT */
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: .7fr 1.3fr;
-      gap: 80px;
-    }
-
-    .about-title {
-      font-size: 18px;
-      font-weight: 700;
-    }
-
-    .about-copy {
-      font-size: clamp(32px, 4vw, 58px);
-      line-height: 1.05;
-      letter-spacing: -2px;
-    }
-
-    /* CONTACT */
-
-    .contact {
-      border-top: 1px solid #ddd;
-    }
-
-    .contact-title {
-      font-size: clamp(56px, 8vw, 110px);
-      line-height: .9;
-      letter-spacing: -6px;
-      max-width: 950px;
-    }
-
-    .contact-actions {
-      margin-top: 50px;
       display: flex;
-      gap: 14px;
+      align-items: center;
+
+      padding: 100px 7vw 80px;
+
+      background: var(--bg);
+
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* MARCA DE AGUA ETSE */
+
+    .hero::after {
+      content: "ETSE";
+
+      position: absolute;
+
+      right: -40px;
+      bottom: -90px;
+
+      font-size: clamp(180px, 28vw, 430px);
+
+      font-weight: 900;
+
+      letter-spacing: -25px;
+
+      color: rgba(0,0,0,.025);
+
+      pointer-events: none;
+
+      z-index: 0;
+    }
+
+    .hero-content {
+      max-width: 1200px;
+      width: 100%;
+
+      margin: auto;
+
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-block;
+
+      margin-bottom: 25px;
+
+      color: var(--red);
+
+      font-size: 13px;
+      font-weight: 800;
+
+      letter-spacing: 3px;
+
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      max-width: 1050px;
+
+      font-size: clamp(60px, 9vw, 145px);
+
+      line-height: .88;
+
+      letter-spacing: -8px;
+
+      font-weight: 900;
+    }
+
+    .hero h1 span {
+      color: var(--red);
+    }
+
+    .hero-description {
+      max-width: 620px;
+
+      margin-top: 45px;
+
+      font-size: clamp(18px, 2vw, 25px);
+
+      color: #444;
+    }
+
+    .hero-buttons {
+      display: flex;
+
+      gap: 15px;
+
+      margin-top: 40px;
+
       flex-wrap: wrap;
     }
 
-    /* FOOTER */
+    /* BOTONES ETSE */
 
-    footer {
-      background: #111;
-      color: white;
-      padding: 35px 0;
-    }
+    .btn {
+      display: inline-flex;
 
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 30px;
+      justify-content: center;
+
+      padding: 15px 24px;
+
+      border: 1px solid var(--black);
+
+      border-radius: 999px;
+
+      font-weight: 700;
+
+      font-size: 14px;
+
+      transition: .25s;
     }
 
-    .footer-brand {
-      font-weight: 800;
-      font-size: 22px;
+    .btn-primary {
+      background: var(--black);
+
+      color: white;
     }
 
-    .footer-meta {
-      color: #888;
+    .btn-primary:hover {
+      background: var(--red);
+
+      border-color: var(--red);
+    }
+
+    .btn-secondary:hover {
+      background: var(--black);
+
+      color: white;
+    }
+
+
+    /* =========================
+       STATS
+    ========================= */
+
+    .stats {
+      display: grid;
+
+      grid-template-columns: repeat(3, 1fr);
+
+      border-top: 1px solid var(--line);
+
+      border-bottom: 1px solid var(--line);
+
+      margin-top: 90px;
+    }
+
+    .stat {
+      padding: 28px 0;
+
+      border-right: 1px solid var(--line);
+    }
+
+    .stat:last-child {
+      border-right: 0;
+    }
+
+    .stat strong {
+      display: block;
+
+      font-size: 13px;
+
+      letter-spacing: 2px;
+    }
+
+    .stat span {
+      display: block;
+
+      margin-top: 5px;
+
+      color: var(--muted);
+
       font-size: 13px;
     }
 
-    /* MOBILE */
+
+    /* =========================
+       SECTIONS
+    ========================= */
+
+    section {
+      padding: 120px 7vw;
+    }
+
+    .section-header {
+      display: flex;
+
+      justify-content: space-between;
+
+      gap: 40px;
+
+      margin-bottom: 60px;
+    }
+
+    .section-number {
+      color: var(--red);
+
+      font-size: 13px;
+
+      font-weight: 800;
+
+      letter-spacing: 2px;
+    }
+
+    .section-title {
+      max-width: 750px;
+
+      font-size: clamp(45px, 6vw, 90px);
+
+      line-height: .95;
+
+      letter-spacing: -4px;
+
+      font-weight: 900;
+    }
+
+
+    /* =========================
+       SERVICES
+    ========================= */
+
+    .services {
+      background: var(--bg);
+    }
+
+    .services-grid {
+      display: grid;
+
+      grid-template-columns: repeat(2, 1fr);
+
+      border-top: 1px solid var(--line);
+    }
+
+    .service {
+      padding: 40px 30px;
+
+      border-bottom: 1px solid var(--line);
+
+      border-right: 1px solid var(--line);
+
+      transition: .3s;
+    }
+
+    .service:nth-child(even) {
+      border-right: 0;
+    }
+
+    .service:hover {
+      background: white;
+
+      transform: translateY(-3px);
+    }
+
+    .service-number {
+      color: var(--red);
+
+      font-size: 13px;
+
+      font-weight: 800;
+    }
+
+    .service h3 {
+      margin-top: 30px;
+
+      font-size: 32px;
+
+      letter-spacing: -1px;
+    }
+
+    .service p {
+      margin-top: 15px;
+
+      max-width: 480px;
+
+      color: var(--muted);
+
+      font-size: 16px;
+    }
+
+    .price {
+      display: block;
+
+      margin-top: 30px;
+
+      font-size: 14px;
+
+      font-weight: 800;
+    }
+
+
+    /* =========================
+       SOBRE MI
+    ========================= */
+
+    .about {
+      background: white;
+    }
+
+    .about-grid {
+      display: grid;
+
+      grid-template-columns: .85fr 1.15fr;
+
+      gap: 80px;
+
+      align-items: center;
+    }
+
+    .profile-photo {
+      aspect-ratio: 4 / 5;
+
+      background:
+        linear-gradient(135deg, #222, #777);
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      overflow: hidden;
+
+      position: relative;
+    }
+
+    .profile-photo img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      display: block;
+    }
+
+    .photo-placeholder {
+      color: white;
+
+      text-align: center;
+
+      padding: 30px;
+    }
+
+    .photo-placeholder strong {
+      display: block;
+
+      font-size: 24px;
+
+      margin-bottom: 10px;
+    }
+
+    .photo-placeholder span {
+      font-size: 13px;
+
+      opacity: .7;
+    }
+
+    .about-content .eyebrow {
+      margin-bottom: 20px;
+    }
+
+    .about-content h2 {
+      font-size: clamp(45px, 5vw, 80px);
+
+      line-height: .95;
+
+      letter-spacing: -4px;
+    }
+
+    .about-content p {
+      max-width: 650px;
+
+      margin-top: 30px;
+
+      font-size: 19px;
+
+      color: #555;
+    }
+
+    .about-signature {
+      margin-top: 35px;
+
+      font-size: 13px;
+
+      font-weight: 800;
+
+      letter-spacing: 2px;
+
+      text-transform: uppercase;
+    }
+
+
+    /* =========================
+       SECURITY
+    ========================= */
+
+    .security {
+      background: var(--dark);
+
+      color: white;
+    }
+
+    .security .section-number {
+      color: #ff454b;
+    }
+
+    .security .section-title {
+      color: white;
+    }
+
+    .security-grid {
+      display: grid;
+
+      grid-template-columns: repeat(3, 1fr);
+
+      margin-top: 70px;
+
+      border-top: 1px solid #333;
+    }
+
+    .security-item {
+      padding: 35px 25px;
+
+      border-right: 1px solid #333;
+    }
+
+    .security-item:last-child {
+      border-right: 0;
+    }
+
+    .security-item strong {
+      font-size: 16px;
+    }
+
+    .security-item p {
+      margin-top: 15px;
+
+      color: #aaa;
+
+      font-size: 14px;
+    }
+
+
+    /* =========================
+       RECOMENDACIONES
+    ========================= */
+
+    .recommendations {
+      background: white;
+    }
+
+    .recommendations-grid {
+      display: grid;
+
+      grid-template-columns: repeat(3, 1fr);
+
+      gap: 20px;
+    }
+
+    .testimonial {
+      padding: 35px;
+
+      background: var(--bg);
+
+      border: 1px solid var(--line);
+
+      transition: .3s;
+    }
+
+    .testimonial:hover {
+      transform: translateY(-5px);
+    }
+
+    .stars {
+      color: var(--red);
+
+      letter-spacing: 3px;
+
+      font-size: 13px;
+    }
+
+    .testimonial p {
+      margin-top: 25px;
+
+      font-size: 18px;
+
+      line-height: 1.5;
+    }
+
+    .testimonial-author {
+      margin-top: 30px;
+
+      font-size: 12px;
+
+      font-weight: 800;
+
+      letter-spacing: 1px;
+
+      text-transform: uppercase;
+    }
+
+    .testimonial-role {
+      margin-top: 5px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+    }
+
+
+    /* =========================
+       METODO
+    ========================= */
+
+    .method {
+      background: var(--bg);
+    }
+
+    .method-grid {
+      display: grid;
+
+      grid-template-columns: repeat(3, 1fr);
+
+      border-top: 1px solid var(--line);
+    }
+
+    .method-item {
+      padding: 40px 25px;
+
+      border-right: 1px solid var(--line);
+    }
+
+    .method-item:last-child {
+      border-right: 0;
+    }
+
+    .method-item span {
+      color: var(--red);
+
+      font-size: 13px;
+
+      font-weight: 800;
+    }
+
+    .method-item h3 {
+      margin-top: 25px;
+
+      font-size: 30px;
+    }
+
+    .method-item p {
+      margin-top: 15px;
+
+      color: var(--muted);
+    }
+
+
+    /* =========================
+       PYME
+    ========================= */
+
+    .pyme {
+      background: var(--red);
+
+      color: white;
+
+      display: grid;
+
+      grid-template-columns: 1fr auto;
+
+      gap: 50px;
+
+      align-items: center;
+    }
+
+    .pyme h2 {
+      font-size: clamp(50px, 7vw, 110px);
+
+      line-height: .9;
+
+      letter-spacing: -5px;
+    }
+
+    .pyme p {
+      max-width: 650px;
+
+      margin-top: 25px;
+
+      font-size: 19px;
+    }
+
+    .pyme .btn {
+      border-color: white;
+
+      color: white;
+    }
+
+    .pyme .btn:hover {
+      background: white;
+
+      color: var(--red);
+    }
+
+
+    /* =========================
+       CONTACTO
+    ========================= */
+
+    .contact {
+      background: var(--black);
+
+      color: white;
+
+      text-align: center;
+    }
+
+    .contact h2 {
+      max-width: 1000px;
+
+      margin: auto;
+
+      font-size: clamp(55px, 8vw, 125px);
+
+      line-height: .9;
+
+      letter-spacing: -6px;
+    }
+
+    .contact p {
+      margin-top: 30px;
+
+      color: #aaa;
+    }
+
+    .contact-buttons {
+      margin-top: 40px;
+
+      display: flex;
+
+      justify-content: center;
+
+      gap: 15px;
+
+      flex-wrap: wrap;
+    }
+
+    .contact .btn-primary {
+      background: white;
+
+      color: black;
+
+      border-color: white;
+    }
+
+    .contact .btn-primary:hover {
+      background: var(--red);
+
+      color: white;
+
+      border-color: var(--red);
+    }
+
+    .contact .btn-secondary {
+      border-color: #555;
+
+      color: white;
+    }
+
+    .contact .btn-secondary:hover {
+      background: white;
+
+      color: black;
+    }
+
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      background: var(--black);
+
+      color: #777;
+
+      border-top: 1px solid #222;
+
+      padding: 30px 7vw;
+
+      display: flex;
+
+      justify-content: space-between;
+
+      font-size: 12px;
+    }
+
+    footer strong {
+      color: white;
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
 
     @media (max-width: 800px) {
 
-      .container {
-        width: min(100% - 30px, 1180px);
+      nav {
+        padding: 18px 5vw;
       }
 
-      .nav-links a:not(.nav-cta) {
+      .nav-links {
         display: none;
       }
 
+      .ticker {
+        margin-top: 65px;
+        height: 42px;
+      }
+
       .hero {
-        padding: 70px 0;
+        padding: 80px 6vw;
       }
 
-      .hero-grid,
-      .section-head,
-      .pyme-content,
-      .about-grid {
-        grid-template-columns: 1fr;
-        gap: 45px;
+      .hero::after {
+        right: -80px;
+        bottom: -30px;
+        font-size: 180px;
+        letter-spacing: -12px;
       }
 
-      h1 {
-        font-size: clamp(56px, 16vw, 90px);
+      .hero h1 {
         letter-spacing: -4px;
       }
 
-      section {
-        padding: 80px 0;
-      }
-
-      .section-title {
-        letter-spacing: -3px;
-      }
-
-      .service {
-        grid-template-columns: 45px 1fr;
-      }
-
-      .service-price {
-        grid-column: 2;
-      }
-
-      .process-grid {
+      .stats {
         grid-template-columns: 1fr;
       }
 
-      .process {
-        border-right: none;
-        border-bottom: 1px solid #ddd;
+      .stat {
+        border-right: 0;
+
+        border-bottom: 1px solid var(--line);
       }
 
-      .process:last-child {
-        border-bottom: none;
+      section {
+        padding: 80px 6vw;
+      }
+
+      .section-header {
+        display: block;
+      }
+
+      .section-title {
+        margin-top: 20px;
+
+        letter-spacing: -2px;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .service {
+        border-right: 0;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+
+        gap: 50px;
+      }
+
+      .profile-photo {
+        max-width: 500px;
+      }
+
+      .security-grid,
+      .recommendations-grid,
+      .method-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .security-item,
+      .method-item {
+        border-right: 0;
+
+        border-bottom: 1px solid #333;
+      }
+
+      .method-item {
+        border-bottom: 1px solid var(--line);
+      }
+
+      .pyme {
+        grid-template-columns: 1fr;
       }
 
       .pyme h2 {
         letter-spacing: -3px;
       }
 
-      .footer-inner {
-        flex-direction: column;
-        align-items: flex-start;
+      .contact h2 {
+        letter-spacing: -3px;
       }
+
+      footer {
+        flex-direction: column;
+
+        gap: 10px;
+      }
+
     }
+
   </style>
 </head>
 
+
 <body>
 
-  <nav>
-    <div class="container nav-inner">
 
-      <a href="#" class="logo">
-        ETSE<span>.</span>
+  <!-- =========================
+       NAV
+  ========================= -->
+
+  <nav>
+
+    <a href="#inicio" class="logo">
+      ETSE<span>.</span>
+    </a>
+
+    <div class="nav-links">
+
+      <a href="#servicios">
+        Servicios
       </a>
 
-      <div class="nav-links">
-        <a href="#servicios">Servicios</a>
-        <a href="#metodo">Método</a>
-        <a href="#pyme">ETSE PYME</a>
-        <a href="#nosotros">Nosotros</a>
+      <a href="#metodo">
+        Método
+      </a>
 
-        <a href="#contacto" class="nav-cta">
-          Habla con ETSE
-        </a>
-      </div>
+      <a href="#pyme">
+        ETSE PYME
+      </a>
+
+      <a href="#nosotros">
+        Nosotros
+      </a>
+
+      <a href="#contacto" class="nav-cta">
+        Habla con ETSE
+      </a>
 
     </div>
+
   </nav>
 
 
-  <main>
+  <!-- =========================
+       BARRA DESLIZANTE
+  ========================= -->
+
+  <div class="ticker">
+
+    <div class="ticker-track">
+
+      <div class="ticker-item">
+        Soporte TI
+      </div>
+
+      <div class="ticker-item">
+        Redes
+      </div>
+
+      <div class="ticker-item">
+        Ciberseguridad
+      </div>
+
+      <div class="ticker-item">
+        Diagnóstico
+      </div>
+
+      <div class="ticker-item">
+        Solución
+      </div>
+
+      <div class="ticker-item">
+        Protección
+      </div>
+
+      <div class="ticker-item">
+        ETSE
+      </div>
+
+      <div class="ticker-item">
+        Soporte TI
+      </div>
+
+      <div class="ticker-item">
+        Redes
+      </div>
+
+      <div class="ticker-item">
+        Ciberseguridad
+      </div>
+
+      <div class="ticker-item">
+        Diagnóstico
+      </div>
+
+      <div class="ticker-item">
+        Solución
+      </div>
+
+      <div class="ticker-item">
+        Protección
+      </div>
+
+      <div class="ticker-item">
+        ETSE
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       HERO
+  ========================= -->
+
+  <main id="inicio">
 
     <section class="hero">
 
-      <div class="container hero-grid">
+      <div class="hero-content">
 
-        <div>
+        <div class="eyebrow">
+          37H1C4L 53CUR17Y · IT · NETWORKS · LAYER 8
+        </div>
 
-          <div class="eyebrow">
-            Ethical Security · IT · Networks
+        <h1>
+          La tecnología
+          <br>
+          debe <span>funcionar.</span>
+        </h1>
+
+        <p class="hero-description">
+          Soporte TI, redes y ciberseguridad para personas
+          y pequeñas empresas. Tecnología profesional,
+          cercana y diseñada para funcionar.
+        </p>
+
+        <div class="hero-buttons">
+
+          <a href="#contacto" class="btn btn-primary">
+            Habla con ETSE →
+          </a>
+
+          <a href="#servicios" class="btn btn-secondary">
+            Explorar servicios
+          </a>
+
+        </div>
+
+
+        <div class="stats">
+
+          <div class="stat">
+
+            <strong>
+              01 · DIAGNÓSTICO
+            </strong>
+
+            <span>
+              Entendemos el problema.
+            </span>
+
           </div>
 
-          <h1>
-            La tecnología
-            debe funcionar.
-          </h1>
 
-          <p class="hero-copy">
-            ETSE conecta soporte TI, redes y ciberseguridad
-            en una sola experiencia: simple, profesional y segura.
+          <div class="stat">
+
+            <strong>
+              02 · SOLUCIÓN
+            </strong>
+
+            <span>
+              Actuamos de forma concreta.
+            </span>
+
+          </div>
+
+
+          <div class="stat">
+
+            <strong>
+              03 · PROTECCIÓN
+            </strong>
+
+            <span>
+              Prevenimos que vuelva a ocurrir.
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         SERVICIOS
+    ========================= -->
+
+    <section class="services" id="servicios">
+
+      <div class="section-header">
+
+        <div class="section-number">
+          01 / SERVICIOS
+        </div>
+
+        <h2 class="section-title">
+          Todo lo que necesitas.
+          <br>
+          Nada que sobre.
+        </h2>
+
+      </div>
+
+
+      <div class="services-grid">
+
+
+        <article class="service">
+
+          <span class="service-number">
+            01
+          </span>
+
+          <h3>
+            ETSE SOS
+          </h3>
+
+          <p>
+            Soporte técnico para problemas de computadores,
+            software, configuración, impresoras y conectividad.
           </p>
 
-          <div class="hero-actions">
+          <span class="price">
+            Desde $25.000
+          </span>
 
-            <a href="#contacto" class="button button-primary">
-              Habla con ETSE
-            </a>
+        </article>
 
-            <a href="#servicios" class="button button-secondary">
-              Explorar servicios
-            </a>
+
+        <article class="service">
+
+          <span class="service-number">
+            02
+          </span>
+
+          <h3>
+            ETSE PC
+          </h3>
+
+          <p>
+            Optimización, limpieza lógica, actualizaciones,
+            configuración y mejora del rendimiento.
+          </p>
+
+          <span class="price">
+            Desde $35.000
+          </span>
+
+        </article>
+
+
+        <article class="service">
+
+          <span class="service-number">
+            03
+          </span>
+
+          <h3>
+            ETSE NETWORK
+          </h3>
+
+          <p>
+            Diagnóstico de Internet, Wi-Fi, routers,
+            cobertura, conectividad y redes.
+          </p>
+
+          <span class="price">
+            Desde $45.000
+          </span>
+
+        </article>
+
+
+        <article class="service">
+
+          <span class="service-number">
+            04
+          </span>
+
+          <h3>
+            ETSE BACKUP
+          </h3>
+
+          <p>
+            Diseño y configuración de estrategias
+            de respaldo para proteger información importante.
+          </p>
+
+          <span class="price">
+            Desde $40.000
+          </span>
+
+        </article>
+
+
+        <article class="service">
+
+          <span class="service-number">
+            05
+          </span>
+
+          <h3>
+            SECURITY CHECK
+          </h3>
+
+          <p>
+            Revisión básica de seguridad, configuraciones,
+            actualizaciones, respaldos y exposición.
+          </p>
+
+          <span class="price">
+            Desde $60.000
+          </span>
+
+        </article>
+
+
+        <article class="service">
+
+          <span class="service-number">
+            06
+          </span>
+
+          <h3>
+            ETSE PYME
+          </h3>
+
+          <p>
+            Tu departamento TI externo. Soporte,
+            redes, mantenimiento y seguridad.
+          </p>
+
+          <span class="price">
+            Desde $99.990 / mes
+          </span>
+
+        </article>
+
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         NOSOTROS
+    ========================= -->
+
+    <section class="about" id="nosotros">
+
+      <div class="about-grid">
+
+
+        <div class="profile-photo">
+
+          <!--
+            AQUÍ PONDREMOS TU FOTO.
+
+            Ejemplo:
+
+            <img
+              src="foto-billy.jpg"
+              alt="Billy Donnie Alarcón"
+            >
+          -->
+
+          <div class="photo-placeholder">
+
+            <strong>
+              TU FOTO
+            </strong>
+
+            <span>
+              Aquí irá la fotografía profesional
+              del fundador de ETSE.
+            </span>
 
           </div>
 
         </div>
 
 
-        <div class="hero-card">
+        <div class="about-content">
 
-          <div class="hero-card-label">
-            ETSE / 01
+          <div class="eyebrow">
+            02 / NOSOTROS
           </div>
 
-          <div class="hero-card-title">
-            Tecnología que funciona.
-            <br><br>
-            Seguridad que protege.
-          </div>
+          <h2>
+            Tecnología con
+            criterio humano.
+          </h2>
 
-          <div class="hero-card-bottom">
-            <span class="pill">IT</span>
-            <span class="pill">NETWORKS</span>
-            <span class="pill">SECURITY</span>
+          <p>
+            Soy Billy Donnie, fundador de ETSE.
+          </p>
+
+          <p>
+            Mi objetivo es ayudar a personas y empresas
+            a entender, mejorar y proteger su tecnología
+            sin complicaciones innecesarias.
+          </p>
+
+          <p>
+            ETSE nace de la experiencia en redes,
+            infraestructura, soporte TI y ciberseguridad,
+            combinando conocimiento técnico con algo
+            igual de importante: saber escuchar y explicar.
+          </p>
+
+          <div class="about-signature">
+            Billy Donnie Alarcón · Founder / ETSE
           </div>
 
         </div>
@@ -547,261 +1436,322 @@ segura.">
     </section>
 
 
-    <section id="servicios">
+    <!-- =========================
+         SECURITY
+    ========================= -->
 
-      <div class="container">
+    <section class="security">
 
-        <div class="section-head">
+      <div class="section-header">
 
-          <div>
-            <div class="section-number">
-              01 / SERVICIOS
-            </div>
-          </div>
+        <div class="section-number">
+          03 / SECURITY
+        </div>
 
-          <div>
+        <h2 class="section-title">
+          Seguridad desde
+          el principio.
+        </h2>
 
-            <h2 class="section-title">
-              Soluciones
-              tecnológicas
-              sin complicaciones.
-            </h2>
+      </div>
 
-            <p class="section-description">
-              Diagnóstico, solución y protección para personas,
-              profesionales y pequeñas empresas.
-            </p>
 
-          </div>
+      <div class="security-grid">
+
+
+        <div class="security-item">
+
+          <strong>
+            REDES
+          </strong>
+
+          <p>
+            Revisamos conectividad,
+            configuración, segmentación y exposición.
+          </p>
 
         </div>
 
 
-        <div class="services">
+        <div class="security-item">
 
-          <a href="#contacto" class="service">
-            <div class="service-number">01</div>
-            <div>
-              <div class="service-name">ETSE SOS</div>
-              <div class="service-description">
-                Soporte TI y resolución de problemas
-              </div>
-            </div>
-            <div class="service-price">Desde $25.000</div>
-          </a>
+          <strong>
+            EQUIPOS
+          </strong>
 
-          <a href="#contacto" class="service">
-            <div class="service-number">02</div>
-            <div>
-              <div class="service-name">ETSE PC</div>
-              <div class="service-description">
-                Optimización y puesta a punto
-              </div>
-            </div>
-            <div class="service-price">Desde $35.000</div>
-          </a>
-
-          <a href="#contacto" class="service">
-            <div class="service-number">03</div>
-            <div>
-              <div class="service-name">ETSE NETWORK</div>
-              <div class="service-description">
-                Redes, Wi-Fi y conectividad
-              </div>
-            </div>
-            <div class="service-price">Desde $45.000</div>
-          </a>
-
-          <a href="#contacto" class="service">
-            <div class="service-number">04</div>
-            <div>
-              <div class="service-name">ETSE BACKUP</div>
-              <div class="service-description">
-                Estrategia y configuración de respaldos
-              </div>
-            </div>
-            <div class="service-price">Desde $40.000</div>
-          </a>
-
-          <a href="#contacto" class="service">
-            <div class="service-number">05</div>
-            <div>
-              <div class="service-name">ETSE SECURITY CHECK</div>
-              <div class="service-description">
-                Revisión básica de ciberseguridad
-              </div>
-            </div>
-            <div class="service-price">Desde $60.000</div>
-          </a>
-
-          <a href="#contacto" class="service">
-            <div class="service-number">06</div>
-            <div>
-              <div class="service-name">ETSE PYME</div>
-              <div class="service-description">
-                Tu departamento TI externo
-              </div>
-            </div>
-            <div class="service-price">Desde $99.990 / mes</div>
-          </a>
+          <p>
+            Actualizaciones, configuraciones,
+            protección y buenas prácticas.
+          </p>
 
         </div>
+
+
+        <div class="security-item">
+
+          <strong>
+            INFORMACIÓN
+          </strong>
+
+          <p>
+            Respaldos, accesos y medidas
+            para reducir riesgos.
+          </p>
+
+        </div>
+
 
       </div>
 
     </section>
 
 
-    <section id="metodo">
+    <!-- =========================
+         RECOMENDACIONES
+    ========================= -->
 
-      <div class="container">
+    <section class="recommendations" id="recomendaciones">
 
-        <div class="section-head">
+      <div class="section-header">
 
-          <div>
-            <div class="section-number">
-              02 / MÉTODO
-            </div>
-          </div>
-
-          <div>
-
-            <h2 class="section-title">
-              Menos vueltas.
-              Más soluciones.
-            </h2>
-
-          </div>
-
+        <div class="section-number">
+          04 / RECOMENDACIONES
         </div>
 
+        <h2 class="section-title">
+          Lo que dicen
+          nuestros clientes.
+        </h2>
 
-        <div class="process-grid">
+      </div>
 
-          <div class="process">
-            <div class="process-number">01</div>
-            <h3>Diagnosticar</h3>
-            <p>
-              Entendemos qué está pasando antes
-              de tocar nada.
-            </p>
+
+      <div class="recommendations-grid">
+
+
+        <article class="testimonial">
+
+          <div class="stars">
+            ★★★★★
           </div>
 
-          <div class="process">
-            <div class="process-number">02</div>
-            <h3>Resolver</h3>
-            <p>
-              Aplicamos una solución clara,
-              eficiente y proporcional al problema.
-            </p>
+          <p>
+            “Aquí aparecerá la recomendación real
+            de un cliente de ETSE.”
+          </p>
+
+          <div class="testimonial-author">
+            Cliente ETSE
           </div>
 
-          <div class="process">
-            <div class="process-number">03</div>
-            <h3>Proteger</h3>
-            <p>
-              Dejamos la tecnología preparada
-              para reducir futuros problemas.
-            </p>
+          <div class="testimonial-role">
+            Testimonio
           </div>
 
-        </div>
+        </article>
+
+
+        <article class="testimonial">
+
+          <div class="stars">
+            ★★★★★
+          </div>
+
+          <p>
+            “Aquí podremos mostrar la experiencia
+            de quienes hayan trabajado con ETSE.”
+          </p>
+
+          <div class="testimonial-author">
+            Cliente ETSE
+          </div>
+
+          <div class="testimonial-role">
+            Testimonio
+          </div>
+
+        </article>
+
+
+        <article class="testimonial">
+
+          <div class="stars">
+            ★★★★★
+          </div>
+
+          <p>
+            “Las recomendaciones reales serán
+            incorporadas a medida que crezca ETSE.”
+          </p>
+
+          <div class="testimonial-author">
+            Cliente ETSE
+          </div>
+
+          <div class="testimonial-role">
+            Testimonio
+          </div>
+
+        </article>
+
 
       </div>
 
     </section>
 
+
+    <!-- =========================
+         METODO
+    ========================= -->
+
+    <section class="method" id="metodo">
+
+      <div class="section-header">
+
+        <div class="section-number">
+          05 / MÉTODO
+        </div>
+
+        <h2 class="section-title">
+          Simple.
+          <br>
+          Profesional.
+          <br>
+          ETSE.
+        </h2>
+
+      </div>
+
+
+      <div class="method-grid">
+
+
+        <div class="method-item">
+
+          <span>
+            01
+          </span>
+
+          <h3>
+            Diagnosticar
+          </h3>
+
+          <p>
+            Primero entendemos qué está pasando.
+            No solucionamos a ciegas.
+          </p>
+
+        </div>
+
+
+        <div class="method-item">
+
+          <span>
+            02
+          </span>
+
+          <h3>
+            Resolver
+          </h3>
+
+          <p>
+            Aplicamos una solución concreta,
+            eficiente y explicada.
+          </p>
+
+        </div>
+
+
+        <div class="method-item">
+
+          <span>
+            03
+          </span>
+
+          <h3>
+            Proteger
+          </h3>
+
+          <p>
+            Buscamos evitar que el mismo problema
+            vuelva a ocurrir.
+          </p>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         ETSE PYME
+    ========================= -->
 
     <section class="pyme" id="pyme">
 
-      <div class="container">
+      <div>
 
-        <div class="pyme-content">
+        <h2>
+          Tu departamento
+          <br>
+          TI externo.
+        </h2>
 
-          <div>
-
-            <div class="section-number">
-              03 / ETSE PYME
-            </div>
-
-            <h2>
-              Tu departamento
-              TI externo.
-            </h2>
-
-          </div>
-
-          <div>
-
-            <p class="pyme-text">
-              Soporte, computadores, redes, Wi-Fi,
-              respaldos, seguridad, inventario y
-              mantenimiento en un solo punto de contacto.
-            </p>
-
-            <div class="pyme-price">
-              Desde $99.990 / mes
-            </div>
-
-          </div>
-
-        </div>
+        <p>
+          ETSE PYME reúne soporte, redes,
+          mantenimiento y seguridad en un
+          solo punto de contacto.
+        </p>
 
       </div>
+
+
+      <a href="#contacto" class="btn">
+        Conocer ETSE PYME →
+      </a>
 
     </section>
 
 
-    <section id="nosotros">
-
-      <div class="container">
-
-        <div class="about-grid">
-
-          <div class="about-title">
-            ETSE / NOSOTROS
-          </div>
-
-          <div class="about-copy">
-            Sabemos resolver.
-            Sabemos explicar.
-            Y creemos que la tecnología
-            debería hacerte la vida más fácil.
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
+    <!-- =========================
+         CONTACTO
+    ========================= -->
 
     <section class="contact" id="contacto">
 
-      <div class="container">
+      <div class="section-number">
+        06 / HABLEMOS
+      </div>
 
-        <div class="section-number">
-          04 / CONTACTO
-        </div>
+      <h2>
+        Hablemos de lo
+        que necesitas.
+      </h2>
 
-        <h2 class="contact-title">
-          Cuéntanos qué
-          está fallando.
-        </h2>
+      <p>
+        Cuéntanos qué está fallando.
+        Nosotros vemos cómo solucionarlo.
+      </p>
 
-        <div class="contact-actions">
 
-          <a href="mailto:contacto@etse.cl"
-             class="button button-primary">
-            Email
-          </a>
+      <div class="contact-buttons">
 
-          <a href="https://wa.me/56900000000"
-             class="button button-secondary">
-            WhatsApp
-          </a>
+        <a
+          href="mailto:contacto@etse.cl"
+          class="btn btn-primary"
+        >
+          Habla con ETSE →
+        </a>
 
-        </div>
+        <a
+          href="https://wa.me/56900000000"
+          class="btn btn-secondary"
+          target="_blank"
+        >
+          WhatsApp →
+        </a>
 
       </div>
 
@@ -810,25 +1760,22 @@ segura.">
   </main>
 
 
+  <!-- =========================
+       FOOTER
+  ========================= -->
+
   <footer>
 
-    <div class="container footer-inner">
+    <div>
+      © 2026 <strong>ETSE</strong>
+    </div>
 
-      <div class="footer-brand">
-        ETSE.
-      </div>
-
-      <div class="footer-meta">
-        Ethical Security · IT · Networks · Cybersecurity
-      </div>
-
-      <div class="footer-meta">
-        Chile · 2026
-      </div>
-
+    <div>
+      Ethical Security · IT · Networks
     </div>
 
   </footer>
+
 
 </body>
 </html>
