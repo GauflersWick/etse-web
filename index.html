@@ -496,7 +496,13 @@
     }
 
     .profile-photo {
-      aspect-ratio: 4 / 5;
+      width: 100%;
+      height: auto;
+      min-height: 0;
+      background: transparent;
+      overflow: hidden;
+      align-self: start;
+}
 
       background:
         linear-gradient(135deg, #222, #777);
@@ -1370,29 +1376,11 @@
 
         <div class="profile-photo">
 
-          <!--
-            AQUÍ PONDREMOS TU FOTO.
-
-            Ejemplo:
-
-            <img
-              src="foto-billy.jpg"
-              alt="Billy Donnie Alarcón"
-            >
-          -->
-
-          <div class="photo-placeholder">
-
-            <strong>
-              TU FOTO
-            </strong>
-
-            <span>
-              Aquí irá la fotografía profesional
-              del fundador de ETSE.
-            </span>
-
-          </div>
+  <img
+    src="assets/billy.jpg"
+    alt="Billy Donnie Alarcón — Fundador de ETSE"
+    style="width: 100%; height: 100%; object-fit: contain; display: block;"
+  >
 
         </div>
 
