@@ -1707,6 +1707,136 @@ body.diagnostico-open {
 
 }
 
+
+    /* =====================================================
+       HISTORIA ETSE
+    ====================================================== */
+
+    .historia-etse {
+      padding: 110px 0;
+      border-top: 1px solid var(--line, #d8d7d2);
+      background: var(--cream, #f4f3ef);
+    }
+
+    .historia-etse-inner {
+      width: min(1180px, calc(100% - 48px));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(420px, 0.9fr);
+      gap: 80px;
+      align-items: center;
+    }
+
+    .historia-etse-content {
+      max-width: 650px;
+    }
+
+    .historia-etse-label {
+      display: block;
+      margin-bottom: 24px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--red, #e3262e);
+    }
+
+    .historia-etse h2 {
+      margin: 0 0 32px;
+      font-size: clamp(42px, 5vw, 72px);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+      color: var(--black, #111111);
+    }
+
+    .historia-etse p {
+      margin: 0 0 20px;
+      max-width: 620px;
+      font-size: 18px;
+      line-height: 1.7;
+      color: var(--muted, #6b6b6b);
+    }
+
+    .historia-etse-years {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin: 38px 0 24px;
+    }
+
+    .historia-etse-years strong {
+      font-size: clamp(52px, 6vw, 82px);
+      line-height: 0.9;
+      letter-spacing: -0.05em;
+      color: var(--black, #111111);
+    }
+
+    .historia-etse-years span {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--red, #e3262e);
+    }
+
+    .historia-etse-final {
+      font-weight: 600;
+      color: var(--black, #111111) !important;
+    }
+
+    .historia-etse-image {
+      width: 100%;
+      overflow: hidden;
+      background: #111111;
+    }
+
+    .historia-etse-image img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      filter: grayscale(100%);
+    }
+
+    @media (max-width: 850px) {
+
+      .historia-etse {
+        padding: 80px 0;
+      }
+
+      .historia-etse-inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .historia-etse-content {
+        max-width: none;
+      }
+
+      .historia-etse-image {
+        max-width: 700px;
+      }
+
+    }
+
+    @media (max-width: 560px) {
+
+      .historia-etse-inner {
+        width: min(100% - 32px, 1180px);
+      }
+
+      .historia-etse h2 {
+        font-size: 42px;
+      }
+
+      .historia-etse p {
+        font-size: 17px;
+      }
+
+    }
+
+
 </style>
 </head>
 
@@ -3083,7 +3213,75 @@ body.diagnostico-open {
          CONTACTO
     ========================= -->
 
-    <section class="contact" id="contacto">
+    
+    <!-- =====================================================
+         HISTORIA ETSE
+    ====================================================== -->
+
+    <section class="historia-etse" id="historia-etse">
+
+      <div class="historia-etse-inner">
+
+        <div class="historia-etse-content">
+
+          <span class="historia-etse-label">
+            LA HISTORIA DETRÁS DE ETSE
+          </span>
+
+          <h2>
+            Antes de ETSE, ya estaba
+            construyendo tecnología.
+          </h2>
+
+          <p>
+            Mi camino técnico comenzó a los 14 años, armando
+            laboratorios para los CFT de la Pontificia Universidad
+            Católica de Valparaíso, tanto en valparaiso como en La Calera.
+          </p>
+
+          <p>
+            Desde entonces, la tecnología dejó de ser solamente
+            algo que estudiaba y se convirtió en algo que aprendí
+            a construir, mantener y solucionar cuando las cosas fallan.
+          </p>
+
+          <p>
+            Con los años llegaron las redes, la infraestructura,
+            el soporte, los proyectos y la seguridad.
+          </p>
+
+          <p>
+            ETSE nace de todo ese recorrido.
+          </p>
+
+          <p>
+            No para complicar la tecnología, sino para hacerla
+            funcionar, entenderla y protegerla.
+          </p>
+
+          <div class="historia-etse-years">
+            <strong>9+</strong>
+            <span>años de experiencia</span>
+          </div>
+
+          <p class="historia-etse-final">
+            Y una historia que comenzó mucho antes que la marca.
+          </p>
+
+        </div>
+
+        <div class="historia-etse-image">
+          <img
+            src="img/historia-etse.jpeg"
+            alt="Historia técnica de ETSE"
+          >
+        </div>
+
+      </div>
+
+    </section>
+
+<section class="contact" id="contacto">
 
       <div class="section-number">
         06 / HABLEMOS
@@ -3228,15 +3426,13 @@ body.diagnostico-open {
           ← Volver
         </button>
 
-        <a
-          href="#contacto"
-          class="diagnostico-contact"
-          id="diagnostico-contact"
-          target="_blank"
-          rel="noopener"
-        >
-          Quiero resolverlo →
-        </a>
+        <button
+      type="button"
+      class="diagnostico-contact"
+      id="diagnostico-contact"
+    >
+      Quiero resolverlo →
+    </button>
 
       </div>
 
@@ -3510,10 +3706,9 @@ document.addEventListener("DOMContentLoaded", () => {
       /*
        * El correo queda preparado con el problema seleccionado.
        */
-      resultContact.href =
-        "https://wa.me/56945810025?text=" +
-        encodeURIComponent(service.message);
+      resultContact.dataset.message = service.message;
 
+  
       step.style.display = "none";
       result.classList.add("is-visible");
 
@@ -3521,6 +3716,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   });
 
+
+  resultContact.addEventListener("click", () => {
+    const message = resultContact.dataset.message;
+
+    if (!message) return;
+
+    window.location.href =
+      "https://wa.me/56945810025?text=" +
+      encodeURIComponent(message);
+  });
 
   backButton.addEventListener("click", () => {
 
